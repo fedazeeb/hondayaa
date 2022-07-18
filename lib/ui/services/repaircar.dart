@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hondaya/ui/widget/appbarbutton.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../database/repaircarsqflite.dart';
@@ -17,6 +16,7 @@ class _RepairCarTabState extends State<RepairCarTab> {
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
 
   RepairCar repaircar = RepairCar();
+
   // final DBRepairCarManager dbrepaircarManager = DBRepairCarManager();
   final DBTransManager dbrepaircarManager = DBTransManager();
 
@@ -55,18 +55,13 @@ class _RepairCarTabState extends State<RepairCarTab> {
     return Scaffold(
       body: Column(children: [
         Container(
-          padding: EdgeInsets.all(x * 0.02),
-          height: y * 0.25,
-          child: Align(
-            alignment: Localizations.localeOf(context).toString() == 'ar_SA'
-                ? Alignment.bottomRight
-                : Alignment.bottomLeft,
-            child: Text('Repair Car ',
-                // "carpartsrequest".tr().toString(),
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                )),
+          width: y * 0.7,
+          height: x * 0.177,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/carparts.png'),
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
         Expanded(
@@ -76,7 +71,8 @@ class _RepairCarTabState extends State<RepairCarTab> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     padding: EdgeInsets.all(x * 0.02),
@@ -84,202 +80,231 @@ class _RepairCarTabState extends State<RepairCarTab> {
                       key: formstate,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "operation".tr()..toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+
                           // car part name TFF
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(24.0),
-                              boxShadow: [BoxShadow(blurRadius: 6.0)],
+                              boxShadow: [BoxShadow(blurRadius: 2.0)],
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: TextFormField(
-                                validator: (val) {
-                                  if (val!.length > 10) {
-                                    return "valid1tff".tr()..toString();
-                                  }
-                                  if (val.length < 2) {
-                                    return "valid2tff".tr()..toString();
-                                  }
-                                  return null;
-                                },
-                                onSaved: (val) {
-                                  repaircar.name = val;
-                                },
-                                // autofocus: true,
-                                textInputAction: TextInputAction.next,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: "operation".tr()..toString(),
-                                  prefixIcon: Icon(Icons.car_repair),
-                                  border: InputBorder.none,
-                                ),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 2) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                repaircar.name = val;
+                              },
+                              // autofocus: true,
+                              textInputAction: TextInputAction.next,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: "operation".tr()..toString(),
+                                prefixIcon: Icon(Icons.car_repair),
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(24.0),
-                              boxShadow: [BoxShadow(blurRadius: 6.0)],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: TextFormField(
-                                validator: (val) {
-                                  if (val!.length > 10) {
-                                    return "valid1tff".tr()..toString();
-                                  }
-                                  if (val.length < 2) {
-                                    return "valid2tff".tr()..toString();
-                                  }
-                                  return null;
-                                },
-                                onSaved: (val) {
-                                  repaircar.mechanic = val;
-                                },
-                                // autofocus: true,
-                                textInputAction: TextInputAction.next,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: "Mechanic Name",
-                                  // "carpart".tr()..toString(),
-                                  prefixIcon: Icon(Icons.car_repair),
-                                  border: InputBorder.none,
-                                ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Mechanic Name",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(24.0),
-                              boxShadow: [BoxShadow(blurRadius: 6.0)],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: TextFormField(
-                                validator: (val) {
-                                  if (val!.length > 10) {
-                                    return "valid1tff".tr()..toString();
-                                  }
-                                  if (val.length < 10) {
-                                    return "valid2tff".tr()..toString();
-                                  }
-                                  return null;
-                                },
-                                onSaved: (val) {
-                                  repaircar.phone = int.tryParse(val!);
-                                },
-                                // autofocus: true,
-                                textInputAction: TextInputAction.next,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  hintText: "Phone Numner",
-                                  // "carpart".tr()..toString(),
-                                  prefixIcon: Icon(Icons.car_repair),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
                           ),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: y * 0.4,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: TextFormField(
-                                    validator: (val) {
-                                      if (val!.length > 10) {
-                                        return "valid1tff".tr()..toString();
-                                      }
-                                      if (val.length < 1) {
-                                        return "valid2tff".tr()..toString();
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (val) {
-                                      repaircar.quantity = int.tryParse(val!);
-                                    },
-                                    // autofocus: true,
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "qty".tr()..toString(),
-                                      prefixIcon: Icon(
-                                          Icons.production_quantity_limits),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [BoxShadow(blurRadius: 2.0)],
+                            ),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 2) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                repaircar.mechanic = val;
+                              },
+                              // autofocus: true,
+                              textInputAction: TextInputAction.next,
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
-                              Container(
-                                width: y * 0.4,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: TextFormField(
-                                    validator: (val) {
-                                      if (val!.length > 10) {
-                                        return "valid1tff".tr()..toString();
-                                      }
-                                      if (val.length < 1) {
-                                        return "valid2tff".tr()..toString();
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (val) {
-                                      repaircar.price = int.tryParse(val!);
-                                    },
-                                    // autofocus: true,
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "price".tr()..toString(),
-                                      prefixIcon: Icon(Icons.attach_money),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.car_repair),
+                                border: InputBorder.none,
                               ),
-                            ],
+                            ),
                           ),
-                          const SizedBox(
-                            height: 20,
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Phone Numner",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
+
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [BoxShadow(blurRadius: 2.0)],
+                            ),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 10) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                repaircar.phone = int.tryParse(val!);
+                              },
+                              // autofocus: true,
+                              textInputAction: TextInputAction.next,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.car_repair),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "qty".tr()..toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // TFF Quantity
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 1) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                repaircar.quantity = int.tryParse(val!);
+                              },
+                              // autofocus: true,
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                    Icons.production_quantity_limits),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "price".tr()..toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // TFF Price
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 1) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                repaircar.price = int.tryParse(val!);
+                              },
+                              // autofocus: true,
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.attach_money),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "carpart".tr()..toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+
                           // Pick date
                           InkWell(
                             onTap: () async {
@@ -306,43 +331,42 @@ class _RepairCarTabState extends State<RepairCarTab> {
                               }
                             },
                             child: Container(
-                              width: y * 0.5,
                               height: x * 0.06,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(24.0),
-                                  boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                              child: Center(
-                                child: Text(
-                                  '${dateTime.year}/${dateTime.month}/${dateTime.day}  ${dateTime.hour}:${dateTime.minute}',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                  boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: 20),
+                                    child: Icon(
+                                      Icons.calendar_today_outlined,
+                                    ),
                                   ),
-                                ),
+
+                                  Text(
+                                    '${dateTime.year}/${dateTime.month}/${dateTime.day}  ${dateTime.hour}:${dateTime.minute}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 40,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ), // Sign up bottom
+                          // Sign up bottom
                           Container(
                             width: y,
                             height: x * 0.06,
                             decoration: BoxDecoration(
-                              // color: Colors.white,
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Colors.black,
-                                  Colors.red,
-                                ],
-                              ),
                               borderRadius: BorderRadius.circular(24.0),
                               boxShadow: [
-                                BoxShadow(blurRadius: 6.0),
+                                BoxShadow(blurRadius: 4.0),
                               ],
                             ),
                             child: ElevatedButton(
@@ -350,10 +374,9 @@ class _RepairCarTabState extends State<RepairCarTab> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24.0),
                                   ),
-                                  primary: Colors.transparent,
                                   textStyle: TextStyle(
-                                    // color: Colors.transparent,
-                                    fontSize: 20.0,
+                                    fontSize: 25,
+                                    fontFamily: 'SEGOEUI',
                                   )),
                               onPressed: () async {
                                 //showLoading(context);

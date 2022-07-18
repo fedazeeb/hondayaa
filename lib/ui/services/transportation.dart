@@ -1,12 +1,13 @@
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hondaya/provider/datetimeprovider.dart';
 import 'package:hondaya/style/style.dart';
-import 'package:hondaya/ui/widget/appbarbutton.dart';
 import 'package:provider/provider.dart';
 
 import '../../database/transsqflite.dart';
 import '../../model/transportationmodel.dart';
+import '../widget/appbarwedgit.dart';
 
 class Transportation extends StatefulWidget {
   @override
@@ -50,20 +51,33 @@ class _TransportationState extends State<Transportation> {
     // final provider = Provider.of<DateTimeProvider>(context);
 
     return Scaffold(
-      appBar: buildAppBar(x, context),
+      appBar: appBarWedgit(context, "transportation"),
+      // buildAppBar(x, context),
       body: Column(children: [
+        //////////////      left and right dirction  language ////////////////////////////////////////////////////////
+        // Container(
+        //   padding: EdgeInsets.all(x * 0.02),
+        //   height: y * 0.25,
+        //   child: Align(
+        //     alignment: Localizations.localeOf(context).toString() == 'ar_SA'
+        //         ? Alignment.bottomRight
+        //         : Alignment.bottomLeft,
+        //     child: Text("transportation".tr().toString(),
+        //         style: TextStyle(
+        //           fontSize: 25,
+        //           fontWeight: FontWeight.bold,
+        //         )),
+        //   ),
+        // ),
+        ////////////////////////////////////////////////////////////////////////////////////////////
         Container(
-          padding: EdgeInsets.all(x * 0.02),
-          height: y * 0.25,
-          child: Align(
-            alignment: Localizations.localeOf(context).toString() == 'ar_SA'
-                ? Alignment.bottomRight
-                : Alignment.bottomLeft,
-            child: Text("transportation".tr().toString(),
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                )),
+          width: MediaQuery.of(context).size.height * 0.38,
+          height: MediaQuery.of(context).size.height * 0.177,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/hafei.png'),
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
         Expanded(
@@ -73,7 +87,8 @@ class _TransportationState extends State<Transportation> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     padding: EdgeInsets.all(x * 0.02),
@@ -81,172 +96,149 @@ class _TransportationState extends State<Transportation> {
                       key: formstate,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // From TFF
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(24.0),
-                              boxShadow: [BoxShadow(blurRadius: 6.0)],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: TextFormField(
-                                validator: (val) {
-                                  if (val!.length > 10) {
-                                    return "valid1tff".tr()..toString();
-                                  }
-                                  if (val.length < 2) {
-                                    return "valid2tff".tr()..toString();
-                                  }
-                                  return null;
-                                },
-                                onSaved: (val) {
-                                  trans.ffrom = val!;
-                                },
-                                // autofocus: true,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  // enabledBorder: InputBorder.none,
-                                  hintText: "from".tr()..toString(),
-                                  prefixIcon: Icon(Icons.location_on_outlined),
-                                  border: InputBorder.none,
-                                ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "From",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
+
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              // borderRadius: BorderRadius.circular(24.0),
+                              boxShadow: [BoxShadow(blurRadius: 2.0)],
+                            ),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 2) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                trans.ffrom = val!;
+                              },
+                              // autofocus: true,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                // enabledBorder: InputBorder.none,
+                                // hintText: "from".tr()..toString(),
+                                prefixIcon: Icon(Icons.location_on_outlined),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "To",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           // To TFF
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(24.0),
-                              boxShadow: [BoxShadow(blurRadius: 6.0)],
+                              boxShadow: [BoxShadow(blurRadius: 2.0)],
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: TextFormField(
-                                validator: (val) {
-                                  if (val!.length > 10) {
-                                    return "valid1tff".tr()..toString();
-                                  }
-                                  if (val.length < 2) {
-                                    return "valid2tff".tr()..toString();
-                                  }
-                                  return null;
-                                },
-                                onSaved: (val) {
-                                  trans.tto = val!;
-                                },
-                                // autofocus: true,
-                                textInputAction: TextInputAction.next,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: "to".tr()..toString(),
-                                  prefixIcon: Icon(Icons.location_on),
-                                  border: InputBorder.none,
-                                ),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 2) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                trans.tto = val!;
+                              },
+                              // autofocus: true,
+                              textInputAction: TextInputAction.next,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: "to".tr()..toString(),
+                                prefixIcon: Icon(Icons.location_on),
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // distance TFF
-                              Container(
-                                width: y * 0.4,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: TextFormField(
-                                    validator: (val) {
-                                      if (val!.length > 10) {
-                                        return "valid1tff".tr()..toString();
-                                      }
-                                      if (val.length < 1) {
-                                        return "valid2tff".tr()..toString();
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (val) {
-                                      trans.distance = int.tryParse(val!);
-                                    },
-                                    // autofocus: true,
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "distance".tr()..toString(),
-                                      prefixIcon: Icon(Icons.social_distance),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Distance",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
                               ),
-                              // price TFF
-                              Container(
-                                width: y * 0.4,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: TextFormField(
-                                    validator: (val) {
-                                      if (val!.length > 10) {
-                                        return "valid1tff".tr()..toString();
-                                      }
-                                      if (val.length < 1) {
-                                        return "valid2tff".tr()..toString();
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (val) {
-                                      trans.rent = int.tryParse(val!);
-                                    },
-                                    // autofocus: true,
-                                    keyboardType: TextInputType.number,
-                                    // inputFormatters: [
-                                    //   CurrencyTextInputFormatter(decimalDigits: 0,
-                                    //   locale: 'en'),
-                                    // ],
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "rent".tr()..toString(),
-                                      prefixIcon: Icon(
-                                        Icons.attach_money,
-                                      ),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
+                            ),
+                          ),
+                          // distance TFF
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 1) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                trans.distance = int.tryParse(val!);
+                              },
+                              // autofocus: true,
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
-                            ],
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintText: "distance".tr()..toString(),
+                                prefixIcon: Icon(Icons.social_distance),
+                                border: InputBorder.none,
+                              ),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 20,
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Date",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                          // Pick date
                           InkWell(
                             onTap: () async {
                               final date = await pickDate();
@@ -269,47 +261,104 @@ class _TransportationState extends State<Transportation> {
                                     time.minute,
                                   );
                                 });
-                                trans.datetime = dateTime.microsecondsSinceEpoch;
+                                trans.datetime =
+                                    dateTime.microsecondsSinceEpoch;
                               }
                             },
                             child: Container(
-                              width: y * 0.5,
-                              height: x * 0.06,
-                              decoration: BoxDecoration(
+                              // width: y * 0.5,
+                              height: x * 0.05,
+                              decoration: const BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(24.0),
-                                  boxShadow: [BoxShadow(blurRadius: 6.0)]),
-                              child: Center(
-                                child: Text(
-                                  '${dateTime.year}/${dateTime.month}/${dateTime.day}  ${dateTime.hour}:${dateTime.minute}',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                  boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Icon(
+                                      Icons.calendar_today_outlined,
+                                    ),
                                   ),
+                                  Text(
+                                    '${dateTime.year}/${dateTime.month}/${dateTime.day}  ${dateTime.hour}:${dateTime.minute}',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      // fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Rent Price",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // Rent price TFF
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [BoxShadow(blurRadius: 2.0)]),
+                            child: TextFormField(
+                              validator: (val) {
+                                if (val!.length > 10) {
+                                  return "valid1tff".tr()..toString();
+                                }
+                                if (val.length < 1) {
+                                  return "valid2tff".tr()..toString();
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                trans.rent = int.tryParse(val!);
+                              },
+                              // autofocus: true,
+                              keyboardType: TextInputType.number,
+                              // inputFormatters: [
+                              //   CurrencyTextInputFormatter(decimalDigits: 0,
+                              //   locale: 'en'),
+                              // ],
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintText: "rent".tr()..toString(),
+                                prefixIcon: Icon(
+                                  Icons.attach_money,
                                 ),
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 40,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ), // Sign up bottom
+                          // Sign up bottom
                           Container(
                             width: y,
                             height: x * 0.06,
                             decoration: BoxDecoration(
                               // color: Colors.white,
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Colors.black,
-                                  Colors.red,
-                                ],
-                              ),
+                              // gradient: LinearGradient(
+                              //   colors: <Color>[
+                              //     Colors.black,
+                              //     Colors.red,
+                              //   ],
+                              // ),
                               borderRadius: BorderRadius.circular(24.0),
                               boxShadow: [
-                                BoxShadow(blurRadius: 6.0),
+                                BoxShadow(blurRadius: 2.0),
                               ],
                             ),
                             child: ElevatedButton(
@@ -317,7 +366,7 @@ class _TransportationState extends State<Transportation> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24.0),
                                   ),
-                                  primary: Colors.transparent,
+                                  // primary: Colors.transparent,
                                   textStyle: TextStyle(
                                     // color: Colors.transparent,
                                     fontSize: 20.0,
@@ -336,7 +385,8 @@ class _TransportationState extends State<Transportation> {
                               child: Text(
                                 "addrequest".tr()..toString(),
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 25,
+                                  fontFamily: 'SEGOEUI',
                                 ),
                               ),
                             ),

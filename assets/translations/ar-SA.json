@@ -1,11 +1,11 @@
 {
   "hello": "مرحبا",
   "text": "العربية",
-  "homepage": "الصفحة الرئيسية",
+  "homepage": "الخدمات",
   "language": "العربية",
   "transportation": "إدخال طلب نقل",
   "fuel": "إدخال عملية التعبئة",
-  "carparts": "شراء قطع سيارات",
+  "carparts": "شراء/تبديل قطع سيارات",
   "report": "التقارير",
   "alerts": "التنبيهات",
   "valid1tff": "عدد الاحرف اكثر من 20",
@@ -14,7 +14,7 @@
   "to": "إلى",
   "distance": "المسافة",
   "rent": "الاجرة",
-  "addrequest": "إضافة طلب",
+  "addrequest": "حفظ",
   "fuelrequest": "تعبئة وقود",
   "carpartsrequest": "شراء قطع للسيارة",
   "gasstation": "اسم المحطة",
@@ -24,5 +24,6 @@
   "maintenance": "إدخال عملية صيانة",
   "operation": "اسم العملية",
   "dashboardtitle": "التقارير",
-  "search": "بحث"
+  "search": "بحث",
+  "aboutus": "عن التطبيق"
 }

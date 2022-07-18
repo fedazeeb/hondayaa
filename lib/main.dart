@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hondaya/model/repaircarmodel.dart';
 import 'package:hondaya/provider/datetimeprovider.dart';
+import 'package:hondaya/provider/localprovider.dart';
+import 'package:hondaya/provider/themenotifier.dart';
+import 'package:hondaya/style/maincolors.dart';
+import 'package:hondaya/style/themee.dart';
 import 'package:hondaya/ui/alert.dart';
 import 'package:hondaya/ui/reports/dashboard.dart';
 import 'package:hondaya/ui/reports/repaircarerport.dart';
@@ -13,21 +17,58 @@ import 'package:hondaya/ui/reports/transportationreport.dart';
 import 'package:hondaya/ui/services/maintanas.dart';
 import 'package:hondaya/ui/services/repaircar.dart';
 import 'package:hondaya/ui/services/updatemaintanas.dart';
+import 'package:hondaya/ui/settings/about.dart';
+import 'package:hondaya/ui/settings/setting.dart';
 import 'package:hondaya/ui/splashscreen.dart';
 import 'package:hondaya/ui/services/transportation.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // print(prefs.getBool("isDarkTheme"));
+  ThemeProvider themeProvider = ThemeProvider();
+  themeProvider.initialize();
+  themeProvider.initializeThemeColor();
+
+  MainColors mainColors = MainColors();
+  mainColors.initialize();
+
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('ar', 'SA')],
-        path: 'assets/translations',
-        // <-- change the path of the translation files
-        saveLocale: true,
-        fallbackLocale: Locale('ar', 'SA'),
-        child: MyApp()),
+      supportedLocales: [Locale('en', 'US'), Locale('ar', 'SA')],
+      path: 'assets/translations',
+      // <-- change the path of the translation files
+      saveLocale: true,
+      fallbackLocale: Locale('ar', 'SA'),
+      child: MultiProvider(
+        builder: (context, child) {
+          return MyApp();
+        },
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => DateTimeProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: themeProvider,
+          ),
+          ChangeNotifierProvider.value(
+            value: mainColors,
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ThemeNotifier(darkTheme)..initialize(),
+          ),
+          // ChangeNotifierProvider(
+          //   create: (_) => ThemeProvider(/*
+          //       isDarkMode: prefs.getBool("isDarkTheme") == null
+          //           ? true
+          //           : prefs.getBool("isDarkTheme")!*/)..initialize(),
+          // ),
+        ],
+      ),
+    ),
   );
 
   // runApp(const MyApp());
@@ -39,52 +80,74 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => DateTimeProvider(),
-        )
-      ],
-      builder: (context, child) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
-            primarySwatch: Colors.blue,
-          ),
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          home: SafeArea(
-            child: SplashScreen(),
-          ),
-          routes: {
-            'myhomepage': (context) => MyHomePage(),
-            'splashscreen': (context) => SplashScreen(),
-            'transportation': (context) => Transportation(),
-            'fuel': (context) => Fuel(),
-            'carparts': (context) => CarPartsTab(),
-            'transreport': (context) => TransReport(),
-            'fuelsreport': (context) => FuelsReport(),
-            'maintenance': (context) => Maintenance(),
-            'repaircar': (context) => RepairCarTab(),
-            'carpartsreport': (context) => CarPartsReport(),
-            'dashboardtitle': (context) => Dashboard(),
-            'alerts': (context) => Alerat_Page(),
-            URepairCar.routeName: (context) => URepairCar(),
-          },
-          // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        );
+    final provider = Provider.of<MainColors>(context, listen: false);
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+//--------------------------------------------------------------
+    // return Consumer<ThemeProvider>(
+    //   builder: (context, themePovider, child) {
+    // print(themePovider.getTheme);
+    //-------------------------------------------------------------
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: themeNotifier.getTheme(),
+      //--------------------------------------------------------
+      // theme:
+      //
+      //   ///////////////////////////////////////////
+      // ThemeData(
+      //   // This is the theme of your application.
+      //   //
+      //   // Try running your application with "flutter run". You'll see the
+      //   // application has a blue toolbar. Then, without quitting the app, try
+      //   // changing the primarySwatch below to Colors.green and then invoke
+      //   // "hot reload" (press "r" in the console where you ran "flutter run",
+      //   // or simply save your changes to "hot reload" in a Flutter IDE).
+      //   // Notice that the counter didn't reset back to zero; the application
+      //   // is not restarted.
+      //   // primarySwatch: provider.primarycolor,//Colors.deepOrange,
+      //   // primaryColor: Colors.orange,
+      //   // primaryColor: Colors.orange,
+      //   // provider.getTopColor,
+      // ),
+      // ///////////////////////////////////////////
+      // darkTheme: themePovider
+      //     .getTheme/*== null
+      //     ? ThemeData.dark()
+      //     : themePovider.getTheme*/
+      // ,
+      //////////////////////////////////////////////----------------
+      //provider.darkTheme,
+
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: SafeArea(
+        child: SplashScreen(),
+      ),
+      routes: {
+        'myhomepage': (context) => MyHomePage(),
+        'splashscreen': (context) => SplashScreen(),
+        'mysetting': (context) => MySetting(),
+        'transportation': (context) => Transportation(),
+        'fuel': (context) => Fuel(),
+        'carparts': (context) => CarPartsTab(),
+        'transreport': (context) => TransReport(),
+        'fuelsreport': (context) => FuelsReport(),
+        'maintenance': (context) => Maintenance(),
+        'repaircar': (context) => RepairCarTab(),
+        'carpartsreport': (context) => CarPartsReport(),
+        'dashboardtitle': (context) => Dashboard(),
+        'alerts': (context) => Alerat_Page(),
+        URepairCar.routeName: (context) => URepairCar(),
+        'about': (context) => About(),
       },
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
+    //},
+    //---------------------------------------------
+    // );
+    //--------------------------------------------
     // child:
     // );
   }

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
+import '../../sitting/BNavigation.dart';
+
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BNavigation(selectedIndex: 0),
       body: Stack(
         children: <Widget>[
           dashBg,

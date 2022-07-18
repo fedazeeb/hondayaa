@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hondaya/ui/services/carparts.dart';
 import 'package:hondaya/ui/services/repaircar.dart';
 
-import '../widget/appbarbutton.dart';
+import '../widget/appbarwedgit.dart';
 
 class Maintenance extends StatefulWidget {
   const Maintenance({Key? key}) : super(key: key);
@@ -20,34 +20,50 @@ class _MaintenanceState extends State<Maintenance> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Maintenance'),
-          bottom: TabBar(
-
-            indicatorColor: Colors.black54,
-            indicatorWeight: 5,
-            padding: EdgeInsets.only(bottom: 1),
-            // indicatorSize: TabBarIndicatorSize.label,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.green,
-            ),
-            tabs: [
-              Tab(
-                icon: Icon(Icons.car_repair),
-              ),
-              Tab(
-                icon: Icon(Icons.construction),
-              ),
-            ],
-
-          ),
-        ),
-
-        body: TabBarView(
+        appBar: appBarWedgit(context, "carparts"),
+        body: Column(
           children: [
-            CarPartsTab(),
-            RepairCarTab(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: TabBar(
+                indicatorWeight: 5,
+
+                // padding: EdgeInsets.only(bottom: 1),
+
+                tabs: [
+                  Tab(
+                    // icon: Icon(Icons.car_repair),
+                    // text: "Repairing",
+                    child: Text(
+                      "Repairing",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'monbaiti',
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Tab( child:
+                    Text(
+                      "Buying",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'monbaiti',
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  CarPartsTab(),
+                  RepairCarTab(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

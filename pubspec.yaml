@@ -39,6 +39,8 @@ dependencies:
   flutter_phone_direct_caller: 2.1.0
   flutter_local_notifications: 9.5.2
   rxdart: ^0.27.3
+  shared_preferences: ^2.0.15
+  dropdown_button2: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -87,7 +89,16 @@ flutter:
     - family: DancingScript
       fonts:
         - asset: assets/fonts/DancingScript-Regular.ttf
-  # fonts:
+    - family: SEGOEUI
+      fonts:
+        - asset: assets/fonts/SEGOEUI.ttf
+    - family: Sitka Banner
+      fonts:
+        - asset: assets/fonts/Sitka Banner.ttf
+    - family: monbaiti
+      fonts:
+        - asset: assets/fonts/monbaiti.ttf
+    # fonts:
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
