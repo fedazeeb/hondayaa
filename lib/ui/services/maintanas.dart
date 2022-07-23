@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hondaya/ui/services/carparts.dart';
 import 'package:hondaya/ui/services/repaircar.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../widget/appbarwedgit.dart';
 
 class Maintenance extends StatefulWidget {
@@ -35,7 +35,7 @@ class _MaintenanceState extends State<Maintenance> {
                     // icon: Icon(Icons.car_repair),
                     // text: "Repairing",
                     child: Text(
-                      "Repairing",
+                      "buying".tr()..toString(),
                       style: TextStyle(
                         fontSize: 25,
                         fontFamily: 'monbaiti',
@@ -45,7 +45,7 @@ class _MaintenanceState extends State<Maintenance> {
                   ),
                   Tab( child:
                     Text(
-                      "Buying",
+                      "repairing".tr()..toString(),
                       style: TextStyle(
                         fontSize: 25,
                         fontFamily: 'monbaiti',

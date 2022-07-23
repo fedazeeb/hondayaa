@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hondaya/ui/widget/appbarwedgit.dart';
 import 'package:provider/provider.dart';
 
 import '../api/notification_api.dart';
@@ -47,6 +48,7 @@ class _Alerat_PageState extends State<Alerat_Page> {
     if (formdata!.validate()) {
       formdata.save();
       print(alerts.title);
+      print(alerts.description);
       print(alerts.datetime);
       print(alerts.pushid);
       alerts.pushid = await dbtransManager.insertAlerts(alerts);
@@ -93,15 +95,15 @@ class _Alerat_PageState extends State<Alerat_Page> {
     double x = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: appBarWedgit(context, "alerts"),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-          print("fgffffffffffffffffffffffffffffffff");
           alerts = new Alerts();
           dateTime = DateTime.now();
           await alertShowDialog(context, y, x, false);
         },
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder(
         future: dbtransManager.getAlertsList(),
@@ -123,35 +125,61 @@ class _Alerat_PageState extends State<Alerat_Page> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('ID: ${st.id}'),
-                            Text("pushid: ${st.pushid}"),
-                            Row(children: [
-                              Expanded(
-                                  child: Text('title: ${st.title}'), flex: 1),
-                              IconButton(
-                                onPressed: () async {
-                                  alerts = st;
-                                  int? i = st.datetime;
-                                  dateTime =
-                                      DateTime.fromMicrosecondsSinceEpoch(i!);
-                                  await alertShowDialog(context, y, x, true);
-                                  // alerts = new Alerts();
-                                },
-                                icon: Icon(Icons.edit),
-                              ),
-                              IconButton(
-                                onPressed: () async {
-                                  await NotificationWidget.cancelNotification(
-                                      st.pushid);
-                                  await dbtransManager.deleteAlerts(st.id);
-                                  setState(() {});
-                                },
-                                icon: Icon(Icons.delete),
-                              ),
-                            ]),
-                            Text('description: ${st.description}'),
+                            // Text('ID: ${st.id}'),
+                            // Text("pushid: ${st.pushid}"),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${"title".tr()..toString()}: ${st.title}',
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      fontFamily: 'monbaiti',
+                                      // fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  // flex: 1,
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    alerts = st;
+                                    int? i = st.datetime;
+                                    dateTime =
+                                        DateTime.fromMicrosecondsSinceEpoch(i!);
+                                    await alertShowDialog(context, y, x, true);
+                                    // alerts = new Alerts();
+                                  },
+                                  icon: Icon(Icons.edit),
+                                  color: Colors.green,
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    await NotificationWidget.cancelNotification(
+                                        st.pushid);
+                                    await dbtransManager.deleteAlerts(st.id);
+                                    setState(() {});
+                                  },
+                                  icon: Icon(Icons.delete),
+                                  color: Colors.red,
+                                ),
+                              ],
+                            ),
                             Text(
-                                '${DateTime.fromMicrosecondsSinceEpoch(st.datetime!)}'),
+                              '${"description".tr()..toString()}: ${st.description}',
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${"date".tr()..toString()}: ${DateTime.fromMicrosecondsSinceEpoch(st.datetime!)}',
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'monbaiti',
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -160,9 +188,14 @@ class _Alerat_PageState extends State<Alerat_Page> {
                 },
               );
             } else {
-              return Text(
-                'No Data',
-                style: TextStyle(fontSize: 40),
+              return const Center(
+                child: Text(
+                  'No Data',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontFamily: 'monbaiti',
+                  ),
+                ),
               );
             }
           }
@@ -238,48 +271,53 @@ class _Alerat_PageState extends State<Alerat_Page> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text("Add New Alert"),
+          title: Text(
+            "addnotification".tr()..toString(),
+            style: const TextStyle(
+              fontSize: 25,
+              // fontWeight: FontWeight.bold,
+              fontFamily: 'Sitka Banner',
+            ),
+          ),
           content: Form(
             key: formstate,
             child: Container(
               height: y / 4,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   // Title TFF
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(24.0),
-                      boxShadow: [BoxShadow(blurRadius: 6.0)],
+                      // borderRadius: BorderRadius.circular(24.0),
+                      boxShadow: [BoxShadow(blurRadius: 2.0)],
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: TextFormField(
-                        initialValue: alerts.title,
-                        validator: (val) {
-                          if (val!.length > 10) {
-                            return "valid1tff".tr()..toString();
-                          }
-                          if (val.length < 2) {
-                            return "valid2tff".tr()..toString();
-                          }
-                          return null;
-                        },
-                        onSaved: (val) {
-                          alerts.title = val!;
-                        },
-                        // autofocus: true,
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          // enabledBorder: InputBorder.none,
-                          hintText: "Title" /*.tr()..toString()*/,
-                          prefixIcon: Icon(Icons.location_on_outlined),
-                          border: InputBorder.none,
-                        ),
+                    child: TextFormField(
+                      initialValue: alerts.title,
+                      validator: (val) {
+                        if (val!.length > 20) {
+                          return "valid1tff".tr()..toString();
+                        }
+                        if (val.length < 2) {
+                          return "valid2tff".tr()..toString();
+                        }
+                        return null;
+                      },
+                      onSaved: (val) {
+                        alerts.title = val!;
+                      },
+                      // autofocus: true,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'monbaiti',
+                      ),
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        // enabledBorder: InputBorder.none,
+                        hintText: "title".tr()..toString(),
+                        prefixIcon: Icon(Icons.title),
+                        // border: InputBorder.none,
                       ),
                     ),
                   ),
@@ -287,18 +325,16 @@ class _Alerat_PageState extends State<Alerat_Page> {
                     height: 20,
                   ),
                   // Description TFF
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24.0),
-                      boxShadow: [BoxShadow(blurRadius: 6.0)],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [BoxShadow(blurRadius: 2.0)],
+                      ),
                       child: TextFormField(
                         initialValue: alerts.description,
                         validator: (val) {
-                          if (val!.length > 10) {
+                          if (val!.length > 200) {
                             return "valid1tff".tr()..toString();
                           }
                           if (val.length < 2) {
@@ -310,15 +346,16 @@ class _Alerat_PageState extends State<Alerat_Page> {
                           alerts.description = val!;
                         },
                         // autofocus: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
+                          fontFamily: 'monbaiti',
                         ),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           // enabledBorder: InputBorder.none,
-                          hintText: "Description" /*.tr()..toString()*/,
-                          prefixIcon: Icon(Icons.location_on_outlined),
-                          border: InputBorder.none,
+                          hintText: "description".tr()..toString(),
+                          prefixIcon: Icon(Icons.description),
+                          // border: InputBorder.none,
                         ),
                         maxLines: 3,
                       ),
@@ -353,22 +390,21 @@ class _Alerat_PageState extends State<Alerat_Page> {
                         print(dateTime);
                         alerts.datetime = dateTime.microsecondsSinceEpoch;
                         alerts.pushid =
-                            (dateTime.microsecondsSinceEpoch / 1000) as int?;
+                            (dateTime.microsecondsSinceEpoch / 1000).round();
                       }
                     },
                     child: Container(
-                      width: y * 0.5,
-                      height: x * 0.06,
+                      width: y * 0.6,
+                      height: x * 0.11,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(24.0),
-                          boxShadow: [BoxShadow(blurRadius: 6.0)]),
+                          boxShadow: [BoxShadow(blurRadius: 2.0)]),
                       child: Center(
                         child: Text(
                           '${dateTime.year}/${dateTime.month}/${dateTime.day}  ${dateTime.hour}:${dateTime.minute}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monbaiti',
                           ),
                         ),
                       ),
@@ -380,28 +416,32 @@ class _Alerat_PageState extends State<Alerat_Page> {
           ),
           actions: <Widget>[
             ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  textStyle: TextStyle(
-                      // color: Colors.transparent,
-                      // fontSize: 20.0,
-                      ),
-                ),
-                onPressed: () async {
-                  if (update) {
-                    await NotificationWidget.cancelNotification(alerts.pushid);
-                    await dbtransManager.deleteAlerts(alerts.id);
-                  }
-                  await addAlertfunction();
-
-                  Navigator.of(context).pop(true);
-                },
-                child: update ? Text(" UPDATE ") : Text(" ADD ")),
-            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text("CANCEL"),
+              child: Text("cancel".tr()..toString()),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(24.0),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (update) {
+                  await NotificationWidget.cancelNotification(alerts.pushid);
+                  await dbtransManager.deleteAlerts(alerts.id);
+                }
+                await addAlertfunction();
+
+                Navigator.of(context).pop(true);
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(24.0),
+                ),
+              ),
+              child: update ? Text("update".tr()..toString()) : Text("add".tr()..toString()),
             ),
           ],
         ),

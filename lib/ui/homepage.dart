@@ -43,7 +43,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             Text(
-              "Best service is here for you",
+              "homepagesub".tr().toString(),
               style: const TextStyle(
               fontSize: 20,
               fontFamily: 'Sitka Banner',
@@ -69,60 +69,6 @@ class MyHomePage extends StatelessWidget {
               Navigator.of(context).pushNamed('alerts');
             },
           ),
-          /////////               language button          /////////////////////
-
-          // CircleAvatar(
-          //   child:
-          //   /////////               language button          /////////////////////
-          //   PopupMenuButton(
-          //     icon: Icon(
-          //       Icons.language,
-          //     ),
-          //     itemBuilder: (BuildContext context) {
-          //       return [
-          //         PopupMenuItem(
-          //           child: Center(
-          //             child: Text(
-          //               'العربية',
-          //               style: TextStyle(
-          //                 fontWeight: arabic,
-          //               ),
-          //             ),
-          //           ),
-          //           value: 1,
-          //         ),
-          //         PopupMenuItem(
-          //           child: Center(
-          //             child: Text(
-          //               'English',
-          //               style: TextStyle(
-          //                 fontWeight: english,
-          //               ),
-          //             ),
-          //           ),
-          //           value: 2,
-          //         ),
-          //       ];
-          //     },
-          //     onSelected: (value) {
-          //       if (value == 1) {
-          //         context.setLocale(Locale('ar', 'SA'));
-          //       } else {
-          //         context.setLocale(Locale('en', 'US'));
-          //       }
-          //       // Navigator.of(context).pushReplacementNamed("splashscreen");
-          //
-          //       // print(Localizations.localeOf(context).toString());
-          //       // context.setLocale(Locale('ar', 'SA'));
-          //     },
-          //     offset: Offset(0, 50),
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.all(
-          //         Radius.circular(20.0),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
       body: Container(

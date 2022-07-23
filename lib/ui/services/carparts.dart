@@ -86,10 +86,10 @@ class _CarPartsTabState extends State<CarPartsTab> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
                               "carpart".tr()..toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -127,10 +127,10 @@ class _CarPartsTabState extends State<CarPartsTab> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
                               "qty".tr()..toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -170,10 +170,10 @@ class _CarPartsTabState extends State<CarPartsTab> {
                           ),
 
                           Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
                               "price".tr()..toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -211,11 +211,11 @@ class _CarPartsTabState extends State<CarPartsTab> {
                             ),
                           ),
 
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "Date",
-                              style: TextStyle(
+                              "date".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,

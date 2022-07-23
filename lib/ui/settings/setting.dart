@@ -51,14 +51,14 @@ class MySetting extends StatelessWidget {
         title: Column(
           children: [
             Text(
-              "Setting",
+            "setting".tr().toString(),
               style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              "Best service is here for you",
+              "homepagesub".tr().toString(),
               style: const TextStyle(
                 fontSize: 14,
               ),
@@ -66,7 +66,7 @@ class MySetting extends StatelessWidget {
           ],
         ),
         toolbarHeight: height * 0.15,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(70),
             bottomLeft: Radius.circular(70),
@@ -80,10 +80,10 @@ class MySetting extends StatelessWidget {
         children: <Widget>[
           ////////////////   Language    //////////////////////////////////
           ListTile(
-            title: Text("language"),
+            title: Text("language".tr().toString()),
             leading: const Icon(Icons.language),
             trailing: PopupMenuButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.expand_more,
               ),
               itemBuilder: (BuildContext context) {
@@ -124,7 +124,7 @@ class MySetting extends StatelessWidget {
                 // context.setLocale(Locale('ar', 'SA'));
               },
               offset: Offset(0, 50),
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),
                 ),
@@ -133,14 +133,14 @@ class MySetting extends StatelessWidget {
           ),
           ////////////////   Dark Mode   //////////////////////////////////
           ListTile(
-            title: Text("Dark Mode"),
+            title: Text("darkmode".tr().toString()),
             leading: Icon(Icons.nightlight_round),
             trailing: SwitchWidget(),
             selected: false,
           ),
           ////////////////    Theme    ///////////////////////////////////
           ListTile(
-            title: Text("Theme"),
+            title: Text("theme".tr().toString()),
             leading: Icon(Icons.format_paint_outlined),
             trailing: DropdownButton2(
               value: provider.getThemeColor,
@@ -237,7 +237,7 @@ class MySetting extends StatelessWidget {
           ),
           const ListTile(
             title: Text("feda.wolf1992@gmail.com"),
-            subtitle: Text('+963 934627852'),
+            subtitle: Text('00963934627852'),
             leading: Icon(Icons.email),
             // onTap: () {
             //   Navigator.pop(context);
@@ -248,7 +248,7 @@ class MySetting extends StatelessWidget {
             // selected: false,
           ),
           ListTile(
-            title: Text("About"),
+            title: Text("aboutus".tr().toString()),
             leading: Icon(Icons.info),
             onTap: () {
               Navigator.of(context).pushNamed('about');

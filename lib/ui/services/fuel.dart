@@ -213,11 +213,11 @@ class _FuelState extends State<Fuel> {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "Date",
-                              style: TextStyle(
+                              "date".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,

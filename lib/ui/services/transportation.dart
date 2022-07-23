@@ -45,8 +45,8 @@ class _TransportationState extends State<Transportation> {
 
   @override
   Widget build(BuildContext context) {
-    double x = MediaQuery.of(context).size.height;
-    double y = MediaQuery.of(context).size.width;
+    double y = MediaQuery.of(context).size.height;
+    double x = MediaQuery.of(context).size.width;
 
     // final provider = Provider.of<DateTimeProvider>(context);
 
@@ -91,7 +91,7 @@ class _TransportationState extends State<Transportation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(x * 0.02),
+                    padding: EdgeInsets.all(y * 0.02),
                     child: Form(
                       key: formstate,
                       child: Column(
@@ -99,11 +99,11 @@ class _TransportationState extends State<Transportation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // From TFF
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "From",
-                              style: TextStyle(
+                              "from".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -144,11 +144,11 @@ class _TransportationState extends State<Transportation> {
                             ),
                           ),
 
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "To",
-                              style: TextStyle(
+                              "to".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -180,17 +180,16 @@ class _TransportationState extends State<Transportation> {
                                 fontSize: 20,
                               ),
                               decoration: InputDecoration(
-                                hintText: "to".tr()..toString(),
                                 prefixIcon: Icon(Icons.location_on),
                                 border: InputBorder.none,
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "Distance",
-                              style: TextStyle(
+                              "distance".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -222,17 +221,17 @@ class _TransportationState extends State<Transportation> {
                               ),
                               textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
-                                hintText: "distance".tr()..toString(),
                                 prefixIcon: Icon(Icons.social_distance),
                                 border: InputBorder.none,
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          // Date
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "Date",
-                              style: TextStyle(
+                              "date".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -267,7 +266,7 @@ class _TransportationState extends State<Transportation> {
                             },
                             child: Container(
                               // width: y * 0.5,
-                              height: x * 0.05,
+                              height: y * 0.05,
                               decoration: const BoxDecoration(
                                   color: Colors.white,
                                   boxShadow: [BoxShadow(blurRadius: 2.0)]),
@@ -293,11 +292,11 @@ class _TransportationState extends State<Transportation> {
                             ),
                           ),
 
-                          const Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: Text(
-                              "Rent Price",
-                              style: TextStyle(
+                              "rent".tr()..toString(),
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'monbaiti',
                                 // fontWeight: FontWeight.bold,
@@ -333,7 +332,6 @@ class _TransportationState extends State<Transportation> {
                               ),
                               textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
-                                hintText: "rent".tr()..toString(),
                                 prefixIcon: Icon(
                                   Icons.attach_money,
                                 ),
@@ -346,8 +344,8 @@ class _TransportationState extends State<Transportation> {
                           ),
                           // Sign up bottom
                           Container(
-                            width: y,
-                            height: x * 0.06,
+                            width: x,
+                            height: y * 0.06,
                             decoration: BoxDecoration(
                               // color: Colors.white,
                               // gradient: LinearGradient(
